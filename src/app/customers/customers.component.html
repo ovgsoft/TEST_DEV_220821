@@ -1,0 +1,39 @@
+<div class="contenedor_tabla">
+    <h1>Customer registros</h1>
+
+    <p *ngIf="!customers"><em>Cargando...</em></p>
+    <button (click)="exportTableToExcel()" class="icon"> Descargar
+    <img src="../../assets/icon/sobresalir.png">
+  </button>
+    <table id="table_id" class='table table-striped table-bordered' *ngIf="customers" #table>
+        <thead>
+            <tr>
+                <th>Id Cliente</th>
+                <th>Fecha de registro</th>
+                <th>Razon social</th>
+                <th>RFC</th>
+                <th>Id empleado</th>
+                <th>Nombre </th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+                <th>id viaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customer of customers | paginate: { itemsPerPage: 20, currentPage: page }">
+                <td>{{ customer.IdCliente }}</td>
+                <td>{{ customer.FechaRegistroEmpresa }}</td>
+                <td>{{ customer.RazonSocial }}</td>
+                <td>{{ customer.RFC }}</td>
+                <td>{{ customer.IdEmpleado }}</td>
+                <td>{{ customer.Nombre }}</td>
+                <td>{{ customer.Paterno }}</td>
+                <td>{{ customer.Materno }}</td>
+                <td>{{ customer.IdViaje }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+
+</div>
