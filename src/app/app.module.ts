@@ -17,9 +17,9 @@ import { ErrorInterceptor } from './Interceptor/errorInterceptor';
 
 import { AuthorizationCheck } from './Services/authorizationCheck'
 import { AuthenticationService } from './Services/authentication.service';
-import { DataFilterPipe } from './pipes/data-filter.pipe';
 import { CustomersComponent } from './customers/customers.component'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -29,22 +29,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CounterComponent,
     FetchDataComponent,
     LoginComponent,
-    DataFilterPipe,
     CustomersComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizationCheck] },
-      { path: 'counter', component: CounterComponent, canActivate: [AuthorizationCheck] },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizationCheck] },
-      { path: 'customers', component: CustomersComponent },
-      { path: 'login', component: LoginComponent }
-    ])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },

@@ -11,13 +11,16 @@ export class CustomersComponent {
    @ViewChild('table') table: ElementRef;
   public customers: CustomersInterface[];
   public page: Number;
-  constructor(private http: HttpClient) {
+  constructor(http: HttpClient, @Inject('https://api.toka.com.mx/candidato/api') baseUrl: string) {
+    http.get('https://api.toka.com.mx/candidato/api/customers').subscribe(result => {
+      this.customers = result["Data"];
+    }, error => console.error(error));
   }
 
   ngOnInit() {
-    this.http.get('https://ovgsoft.com/data.json').subscribe(result => {
-      this.customers = result["Data"];
-    }, error => console.error(error));
+    // this.http.get('https://ovgsoft.com/data.json').subscribe(result => {
+    //   this.customers = result["Data"];
+    // }, error => console.error(error));
 
   }
 exportTableToExcel() {
@@ -26,7 +29,7 @@ exportTableToExcel() {
       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
       /* save to file */
-      XLSX.writeFile(wb, 'SheetJS.xlsx');
+      XLSX.writeFile(wb, 'customers.xlsx');
 }
 }
 interface CustomersInterface {
